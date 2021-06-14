@@ -6,7 +6,7 @@
 #
 
 define Profile/MI424WR
-  NAME:=Actiontec MI-424WR Rev I
+  NAME:=ZTE F660
   PACKAGES:= \
 	kmod-usb2 kmod-usb-storage \
 	kmod-leds-gpio kmod-ledtrig-netdev \
