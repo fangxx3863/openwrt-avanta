@@ -5,20 +5,20 @@
 # See /LICENSE for more information.
 #
 
-define Profile/MI424WR
+define Profile/F660
   NAME:=ZTE F660
   PACKAGES:= \
 	kmod-usb2 kmod-usb-storage \
 	kmod-leds-gpio kmod-ledtrig-netdev \
 	kmod-ledtrig-usbdev wpad-mini \
-	swconfig uboot-envtools
+	swconfig
 endef
 
-define Profile/MI424WR/Description
- Package set compatible with Actiontec MI-424WR rev. I.
+define Profile/F660/Description
+ Package set compatible with ZTE F660.
 endef
 
-MI424WR_UBIFS_OPTS:="-m 512 -e 15872 -c 8192"
-MI424WR_UBI_OPTS:="-m 512 -p 16KiB -s 256"
+F660_UBIFS_OPTS:="-m 512 -e 15872 -c 8192"
+F660_UBI_OPTS:="-m 512 -p 16KiB -s 256"
 
-$(eval $(call Profile,MI424WR))
+$(eval $(call Profile,F660))

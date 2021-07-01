@@ -123,9 +123,9 @@ endef
 Image/BuildKernel/Template/Generic=$(call Image/BuildKernel/Template)
 Image/InstallKernel/Template/Generic=$(call Image/InstallKernel/Template)
 
-Image/BuildKernel/Template/MI424WR=$(call Image/BuildKernel/Template,mi424wr)
-Image/InstallKernel/Template/MI424WR=$(call Image/InstallKernel/Template,mi424wr)
-define Image/Build/Template/MI424WR
+Image/BuildKernel/Template/F660=$(call Image/BuildKernel/Template,f660)
+Image/InstallKernel/Template/F660=$(call Image/InstallKernel/Template,f660)
+define Image/Build/Template/F660
 
  ifeq ($(1),squashfs)
 	$(call BuildSysupgrade,$(1),$(call sanitize_profile_name))
