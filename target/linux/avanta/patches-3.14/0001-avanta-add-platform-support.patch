@@ -213,9 +213,9 @@ Subject: [PATCH 1/4] avanta: add platform support
 +		};
 +	};
 +	ocp@f1000000 {
-+		pinctrl: pinctrl@10000 {
++		pinctrl: pinctrl@18000 {
 +			compatible = "marvell,88f6282-pinctrl";
-+			reg = <0x10000 0x20>;
++			reg = <0x18000 0x20>;
 +
 +			pmx_nand: pmx-nand {
 +				marvell,pins = "mpp0", "mpp1", "mpp2", "mpp3",
@@ -594,11 +594,11 @@ Subject: [PATCH 1/4] avanta: add platform support
 +			status = "disabled";
 +		};
 +
-+		gpio0: gpio@10100 {
++		gpio0: gpio@18100 {
 +			compatible = "marvell,orion-gpio";
 +			#gpio-cells = <2>;
 +			gpio-controller;
-+			reg = <0x10100 0x40>;
++			reg = <0x18100 0x40>;
 +			ngpios = <32>;
 +			interrupt-controller;
 +			#interrupt-cells = <2>;
