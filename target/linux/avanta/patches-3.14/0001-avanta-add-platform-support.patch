@@ -63,7 +63,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +	select PCI
 +	select PCI_QUIRKS
 +	select PINCTRL
-+	select PINCTRL_KIRKWOOD
++	select PINCTRL_ARMADA_370
 +	select PLAT_ORION_LEGACY
 +	help
 +	  Support for the following Marvell Kirkwood series SoCs:
@@ -133,7 +133,7 @@ Subject: [PATCH 1/4] avanta: add platform support
  	kirkwood-db-88f6282.dtb \
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-6560.dtsi
-@@ -0,0 +1,169 @@
+@@ -0,0 +1,170 @@
 +/*
 + * Hack of kirkwood.dtsi to support a basic Avanta system
 + *
@@ -212,10 +212,11 @@ Subject: [PATCH 1/4] avanta: add platform support
 +			};
 +		};
 +	};
++
 +	ocp@f1000000 {
 +		pinctrl: pinctrl@18000 {
-+			compatible = "marvell,88f6282-pinctrl";
-+			reg = <0x18000 0x20>;
++			compatible = "marvell,mv88f6710-pinctrl";
++			reg = <0x18000 0x38>;
 +
 +			pmx_nand: pmx-nand {
 +				marvell,pins = "mpp0", "mpp1", "mpp2", "mpp3",
@@ -305,7 +306,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +};
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-f660.dts
-@@ -0,0 +1,170 @@
+@@ -0,0 +1,198 @@
 +/*
 + * Device Tree file for zte f660
 + *   (c) 2021 winnt5 <jiconglu58@gmail.com>
@@ -411,23 +412,51 @@ Subject: [PATCH 1/4] avanta: add platform support
 +			gpios = <&gpio1 16 GPIO_ACTIVE_LOW>;
 +		};
 +	};
-+
++*/
 +	gpio-leds {
 +		compatible = "gpio-leds";
-+		pinctrl-0 = < &pmx_led_white_health &pmx_led_white_pulse >;
-+		pinctrl-names = "default";
 +
-+		white-health {
-+			label = "ea4500:white:health";
-+			gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
++		warn-red {
++			label = "warn:red";
++			gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
 +		};
 +
-+		white-pulse {
-+			label = "ea4500:white:pulse";
-+			gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
++		voice1-green {
++			label = "voice1:green";
++			gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
++		};
++
++		ponnetwork-green {
++			label = "ponnetwork:green";
++			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
++		};
++
++		ponport-red {
++			label = "ponport:red";
++			gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;
++		};
++
++		voice2-green {
++			label = "voice2:green";
++			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
++		};
++
++		wps-red {
++			label = "wps:red";
++			gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
++		};
++
++		wps-green {
++			label = "wps:green";
++			gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
++		};
++
++		usb-green {
++			label = "usb:green";
++			gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;
 +		};
 +	};
-+*/
++
 +	mvsw6171 {
 +		compatible = "marvell,88e6171";
 +		status = "okay";
@@ -478,7 +507,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +};
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta.dtsi
-@@ -0,0 +1,302 @@
+@@ -0,0 +1,313 @@
 +/*
 + * Hack of kirkwood.dtsi to support a basic Avanta system
 + *
@@ -530,7 +559,8 @@ Subject: [PATCH 1/4] avanta: add platform support
 +
 +	aliases {
 +	       gpio0 = &gpio0;
-+	       /*gpio1 = &gpio1;*/
++	       gpio1 = &gpio1;
++	       gpio2 = &gpio2;
 +	};
 +
 +	mbus {
@@ -602,23 +632,33 @@ Subject: [PATCH 1/4] avanta: add platform support
 +			ngpios = <32>;
 +			interrupt-controller;
 +			#interrupt-cells = <2>;
-+			interrupts = <36>, <37>, <38>, <39>;
++			interrupts = <35>, <36>, <37>, <38>;
 +			clocks = <&gate_clk 7>;
 +		};
 +
-+/*
-+		gpio1: gpio@10140 {
++		gpio1: gpio@18140 {
 +			compatible = "marvell,orion-gpio";
 +			#gpio-cells = <2>;
 +			gpio-controller;
-+			reg = <0x10140 0x40>;
-+			ngpios = <18>;
++			reg = <0x18140 0x40>;
++			ngpios = <32>;
 +			interrupt-controller;
 +			#interrupt-cells = <2>;
-+			interrupts = <39>, <40>, <41>;
++			interrupts = <39>, <40>, <41>, <42>;
 +			clocks = <&gate_clk 7>;
 +		};
-+*/
++
++		gpio2: gpio@18180 {
++			compatible = "marvell,orion-gpio";
++			#gpio-cells = <2>;
++			gpio-controller;
++			reg = <0x18180 0x40>;
++			ngpios = <24>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			interrupts = <43>, <44>, <45>;
++			clocks = <&gate_clk 7>;
++		};
 +
 +		i2c@11000 {
 +			compatible = "marvell,mv64xxx-i2c";
@@ -1952,7 +1992,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#endif
 --- /dev/null
 +++ b/arch/arm/mach-avanta/include/mach/irqs.h
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,69 @@
 +/*
 + * arch/arm/mach-kirkwood/include/mach/irqs.h
 + *
@@ -2001,9 +2041,13 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#define IRQ_KIRKWOOD_GPIO_LOW_8_15	36
 +#define IRQ_KIRKWOOD_GPIO_LOW_16_23	37
 +#define IRQ_KIRKWOOD_GPIO_LOW_24_31	38
-+#define IRQ_KIRKWOOD_GPIO_HIGH_0_7	39
-+#define IRQ_KIRKWOOD_GPIO_HIGH_8_15	40
-+#define IRQ_KIRKWOOD_GPIO_HIGH_16_23	41
++#define IRQ_KIRKWOOD_GPIO_MID_0_7	39
++#define IRQ_KIRKWOOD_GPIO_MID_8_15	40
++#define IRQ_KIRKWOOD_GPIO_MID_16_23	41
++#define IRQ_KIRKWOOD_GPIO_MID_24_31	42
++#define IRQ_KIRKWOOD_GPIO_HIGH_0_7	43
++#define IRQ_KIRKWOOD_GPIO_HIGH_8_15	44
++#define IRQ_KIRKWOOD_GPIO_HIGH_16_23	45
 +#define IRQ_KIRKWOOD_GE00_ERR	46
 +#define IRQ_KIRKWOOD_GE01_ERR	47
 +#define IRQ_KIRKWOOD_RTC        53
@@ -2012,7 +2056,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 + * KIRKWOOD General Purpose Pins
 + */
 +#define IRQ_KIRKWOOD_GPIO_START	64
-+#define NR_GPIO_IRQS		50
++#define NR_GPIO_IRQS		89
 +
 +#define NR_IRQS			(IRQ_KIRKWOOD_GPIO_START + NR_GPIO_IRQS)
 +
@@ -2020,7 +2064,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#endif
 --- /dev/null
 +++ b/arch/arm/mach-avanta/include/mach/kirkwood.h
-@@ -0,0 +1,142 @@
+@@ -0,0 +1,143 @@
 +/*
 + * arch/arm/mach-kirkwood/include/mach/kirkwood.h
 + *
@@ -2089,11 +2133,12 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#define DDR_OPERATION_BASE	(DDR_PHYS_BASE + 0x1418)
 +
 +#define DEV_BUS_PHYS_BASE	(KIRKWOOD_REGS_PHYS_BASE + 0x10000)
-+#define DEV_BUS_VIRT_BASE	(KIRKWOOD_REGS_VIRT_BASE + 0x10000)
++#define DEV_BUS_VIRT_BASE	(KIRKWOOD_REGS_VIRT_BASE + 0x18000)
 +#define  SAMPLE_AT_RESET	(DEV_BUS_VIRT_BASE + 0x0030)
 +#define  DEVICE_ID		(DEV_BUS_VIRT_BASE + 0x0034)
 +#define  GPIO_LOW_VIRT_BASE	(DEV_BUS_VIRT_BASE + 0x0100)
-+#define  GPIO_HIGH_VIRT_BASE	(DEV_BUS_VIRT_BASE + 0x0140)
++#define  GPIO_MID_VIRT_BASE	(DEV_BUS_VIRT_BASE + 0x0140)
++#define  GPIO_HIGH_VIRT_BASE	(DEV_BUS_VIRT_BASE + 0x0180)
 +#define  RTC_PHYS_BASE		(DEV_BUS_PHYS_BASE + 0x0300)
 +#define  SPI_PHYS_BASE		(DEV_BUS_PHYS_BASE + 0x0600)
 +#define  I2C_PHYS_BASE		(DEV_BUS_PHYS_BASE + 0x1000)
