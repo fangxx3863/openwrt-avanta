@@ -10,7 +10,7 @@ define Profile/F660
   PACKAGES:= \
 	kmod-usb2 kmod-usb-storage \
 	kmod-leds-gpio kmod-ledtrig-netdev \
-	kmod-ledtrig-usbdev wpad-mini \
+	kmod-ledtrig-usbdev \
 	swconfig
 endef
 
