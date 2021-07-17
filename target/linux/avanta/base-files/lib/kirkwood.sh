@@ -16,7 +16,9 @@ kirkwood_board_detect() {
 	"ZTE F660")
 		name="f660"
 		;;
-
+	"HQW HGG420N")
+		name="hgg420n"
+		;;
 	*)
 		name="generic"
 		;;

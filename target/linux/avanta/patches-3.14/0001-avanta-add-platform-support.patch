@@ -123,11 +123,12 @@ Subject: [PATCH 1/4] avanta: add platform support
  machine-$(CONFIG_ARCH_BERLIN)		+= berlin
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -83,6 +83,7 @@ dtb-$(CONFIG_ARCH_HIGHBANK) += highbank.
+@@ -83,6 +83,8 @@ dtb-$(CONFIG_ARCH_HIGHBANK) += highbank.
  dtb-$(CONFIG_ARCH_INTEGRATOR) += integratorap.dtb \
  	integratorcp.dtb
  dtb-$(CONFIG_ARCH_LPC32XX) += ea3250.dtb phy3250.dtb
-+dtb-$(CONFIG_ARCH_AVANTA) += avanta-f660.dtb
++dtb-$(CONFIG_ARCH_AVANTA) += avanta-f660.dtb \
++	avanta-hgg420n.dtb
  dtb-$(CONFIG_ARCH_KIRKWOOD) += kirkwood-cloudbox.dtb \
  	kirkwood-db-88f6281.dtb \
  	kirkwood-db-88f6282.dtb \

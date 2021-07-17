@@ -16,6 +16,10 @@ platform_check_image() {
 		nand_do_platform_check $board $1
 		return $?;
 		;;
+	"hgg420n")
+		nand_do_platform_check $board $1
+		return $?;
+		;;
 	esac
 
 	echo "Sysupgrade is not yet supported on $board."

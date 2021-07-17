@@ -127,6 +127,10 @@ Image/BuildKernel/Template/F660=$(call Image/BuildKernel/Template,f660)
 Image/InstallKernel/Template/F660=$(call Image/InstallKernel/Template,f660)
 define Image/Build/Template/F660
 
+Image/BuildKernel/Template/HGG420N=$(call Image/BuildKernel/Template,hgg420n)
+Image/InstallKernel/Template/HGG420N=$(call Image/InstallKernel/Template,hgg420n)
+define Image/Build/Template/HGG420N
+
  ifeq ($(1),squashfs)
 	$(call BuildSysupgrade,$(1),$(call sanitize_profile_name))
 	( \

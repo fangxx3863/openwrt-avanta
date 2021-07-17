@@ -9,6 +9,9 @@ get_status_led() {
 	f660)
 		status_led="ponnetwork:green"
 		;;
+	hgg420n)
+		status_led="ponnetwork:green"
+		;;
 	esac
 }
 
