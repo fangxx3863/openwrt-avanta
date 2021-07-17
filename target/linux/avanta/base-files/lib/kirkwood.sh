@@ -13,30 +13,6 @@ kirkwood_board_detect() {
 	machine=$(cat /proc/device-tree/model)
 
 	case "$machine" in
-	"Seagate FreeAgent Dockstar")
-		name="dockstar"
-		;;
-
-	"Iomega Iconnect")
-		name="iconnect"
-		;;
-
-	"RaidSonic ICY BOX IB-NAS62x0 (Rev B)")
-		name="ib62x0"
-		;;
-
-	"Cloud Engines Pogoplug E02")
-		name="pogo_e02"
-		;;
-
-	"D-Link DIR-665")
-		name="dir665"
-		;;
-
-	"Linksys EA4500")
-		name="ea4500"
-		;;
-
 	"ZTE F660")
 		name="f660"
 		;;

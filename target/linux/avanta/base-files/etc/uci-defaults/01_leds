@@ -9,22 +9,6 @@
 board=$(kirkwood_board_name)
 
 case "$board" in
-"dockstar")
-	ucidef_set_led_default "health" "status:green:health" "1"
-	ucidef_set_led_default "fault" "status:orange:fault" "1"
-	;;
-"ea4500")
-	ucidef_set_led_default "health" "ea4500:white:health" "1"
-	ucidef_set_led_default "pulse" "ea4500:white:pulse" "1"
-	;;
-"ib62x0")
-	ucidef_set_led_default "health" "ib62x0:green:os" "1"
-	ucidef_set_led_default "fault" "ib62x0:red:os" "1"
-	;;
-"pogo_e02")
-	ucidef_set_led_default "health" "status:green:health" "1"
-	ucidef_set_led_default "fault" "status:orange:fault" "1"
-	;;
 "f660")
 	ucidef_set_led_default "warn" "warn:red" "1"
 	ucidef_set_led_default "voice1" "voice1:green" "1"

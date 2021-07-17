@@ -6,8 +6,8 @@
 
 get_status_led() {
 	case $(kirkwood_board_name) in
-	dir665)
-		status_led="dir665:blue:status"
+	f660)
+		status_led="ponnetwork:green"
 		;;
 	esac
 }
