@@ -32,11 +32,11 @@ define Profile/HGG420N
 	swconfig
 endef
 
-define Profile/F660/Description
- Package set compatible with ZTE F660.
+define Profile/HGG420N/Description
+ Package set compatible with HQW HGG420N.
 endef
 
-F660_UBIFS_OPTS:="-m 512 -e 15872 -c 8192"
-F660_UBI_OPTS:="-m 512 -p 16KiB -s 256"
+HGG420N_UBIFS_OPTS:="-m 512 -e 15872 -c 8192"
+HGG420N_UBI_OPTS:="-m 512 -p 16KiB -s 256"
 
-$(eval $(call Profile,F660))
+$(eval $(call Profile,HGG420N))
