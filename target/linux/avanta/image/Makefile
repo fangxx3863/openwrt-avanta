@@ -127,6 +127,16 @@ Image/BuildKernel/Template/F660=$(call Image/BuildKernel/Template,f660)
 Image/InstallKernel/Template/F660=$(call Image/InstallKernel/Template,f660)
 define Image/Build/Template/F660
 
+ ifeq ($(1),squashfs)
+	$(call BuildSysupgrade,$(1),$(call sanitize_profile_name))
+	( \
+		dd if=$(BIN_DIR)/$(IMG_PREFIX)-$(call sanitize_profile_name)-uImage bs=2048k conv=sync; \
+		dd if=$(KDIR)/$(IMG_PREFIX)-$(call sanitize_profile_name)-$(1)-ubinized.bin; \
+	) > $(BIN_DIR)/$(IMG_PREFIX)-$(call sanitize_profile_name)-$(1)-combined.bin
+ endif
+
+endef
+
 Image/BuildKernel/Template/HGG420N=$(call Image/BuildKernel/Template,hgg420n)
 Image/InstallKernel/Template/HGG420N=$(call Image/InstallKernel/Template,hgg420n)
 define Image/Build/Template/HGG420N
