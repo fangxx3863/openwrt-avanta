@@ -19,16 +19,6 @@ case "$board" in
 	ucidef_set_led_default "wpsg" "wps:green" "1"
 	ucidef_set_led_default "usb" "usb:green" "1"
 	;;
-"hgg420n")
-	ucidef_set_led_default "warn" "warn:red" "1"
-	ucidef_set_led_default "voice1" "voice1:green" "1"
-	ucidef_set_led_default "ponnetwork" "ponnetwork:green" "1"
-	ucidef_set_led_default "ponport" "ponport:red" "1"
-	ucidef_set_led_default "voice2" "voice2:green" "1"
-	ucidef_set_led_default "wpsr" "wps:red" "1"
-	ucidef_set_led_default "wpsg" "wps:green" "1"
-	ucidef_set_led_default "usb" "usb:green" "1"
-	;;
 *)
 	;;
 esac

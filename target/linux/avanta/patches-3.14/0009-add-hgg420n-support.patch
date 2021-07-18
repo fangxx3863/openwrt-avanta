@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-hgg420n.dts
-@@ -0,0 +1,208 @@
+@@ -0,0 +1,163 @@
 +/*
 + * Device Tree file for hqw hgg420n
 + *   (c) 2021 winnt5 <jiconglu58@gmail.com>
@@ -47,11 +47,9 @@
 +				status = "okay";
 +			};
 +
-+/*
 +			pcie@2,0 {
 +				status = "okay";
 +			};
-+*/
 +		};
 +	};
 +
@@ -107,51 +105,8 @@
 +		};
 +	};
 +*/
-+	gpio-leds {
-+		compatible = "gpio-leds";
 +
-+		warn-red {
-+			label = "warn:red";
-+			gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		voice1-green {
-+			label = "voice1:green";
-+			gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ponnetwork-green {
-+			label = "ponnetwork:green";
-+			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ponport-red {
-+			label = "ponport:red";
-+			gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		voice2-green {
-+			label = "voice2:green";
-+			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		wps-red {
-+			label = "wps:red";
-+			gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		wps-green {
-+			label = "wps:green";
-+			gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		usb-green {
-+			label = "usb:green";
-+			gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	mvsw6171 {
++	mvsw6171 {ms
 +		compatible = "marvell,88e6171";
 +		status = "okay";
 +		reg = <0x8>;
