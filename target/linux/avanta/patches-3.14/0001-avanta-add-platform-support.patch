@@ -570,11 +570,11 @@ Subject: [PATCH 1/4] avanta: add platform support
 +		#size-cells = <1>;
 +		/* If a board file needs to change this ranges it must replace it completely */
 +		ranges = <MBUS_ID(0xf0, 0x01) 0 0xf1000000 0x100000	/* internal-regs */
-+			  MBUS_ID(0x01, 0x2f) 0 0xf8000000 0x10000	/* nand flash */
++			  MBUS_ID(0x01, 0x2f) 0 0xf4000000 0x10000	/* nand flash */
 +			  MBUS_ID(0x03, 0x01) 0 0xf5000000 0x10000	/* crypto sram */
 +			  >;
 +		controller = <&mbusc>;
-+		pcie-mem-aperture = <0xf3000000 0x2000000>; /* 32 MiB memory space */
++		pcie-mem-aperture = <0xf3000000 0x1000000>; /* 16 MiB memory space */
 +		pcie-io-aperture  = <0xf2000000 0x100000>;   /*   1 MiB    I/O space */
 +
 +		crypto@0301 {
@@ -2116,13 +2116,13 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#define KIRKWOOD_REGS_VIRT_BASE		IOMEM(0xfed00000)
 +#define KIRKWOOD_REGS_SIZE		SZ_1M
 +
-+#define KIRKWOOD_PCIE_MEM_PHYS_BASE	0xf3000000
-+#define KIRKWOOD_PCIE_MEM_BUS_BASE	0xf3000000
-+#define KIRKWOOD_PCIE_MEM_SIZE		SZ_16M
++#define KIRKWOOD_PCIE_MEM_PHYS_BASE	0xe0000000
++#define KIRKWOOD_PCIE_MEM_BUS_BASE	0xe0000000
++#define KIRKWOOD_PCIE_MEM_SIZE		SZ_128M
 +
-+#define KIRKWOOD_PCIE1_MEM_PHYS_BASE	0xf4000000
-+#define KIRKWOOD_PCIE1_MEM_BUS_BASE	0xf4000000
-+#define KIRKWOOD_PCIE1_MEM_SIZE		SZ_16M
++#define KIRKWOOD_PCIE1_MEM_PHYS_BASE	0xe8000000
++#define KIRKWOOD_PCIE1_MEM_BUS_BASE	0xe8000000
++#define KIRKWOOD_PCIE1_MEM_SIZE		SZ_128M
 +
 +/*
 + * Register Map
