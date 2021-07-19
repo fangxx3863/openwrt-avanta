@@ -106,7 +106,7 @@
 +	};
 +*/
 +
-+	mvsw6171 {ms
++	mvsw6171 {
 +		compatible = "marvell,88e6171";
 +		status = "okay";
 +		reg = <0x8>;
