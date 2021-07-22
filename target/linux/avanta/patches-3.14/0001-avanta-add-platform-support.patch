@@ -974,7 +974,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +
 +static void __init kirkwood_dt_init(void)
 +{
-+	pr_info("Kirkwood: %s.\n", kirkwood_id());
++	pr_info("Avanta: %s.\n", kirkwood_id());
 +
 +	/*
 +	 * Disable propagation of mbus errors to the CPU local bus,
@@ -1125,17 +1125,11 @@ Subject: [PATCH 1/4] avanta: add platform support
 +
 +static void disable_pcie1(void)
 +{
-+	u32 dev, rev;
-+
-+	kirkwood_pcie_id(&dev, &rev);
-+
-+	if (dev == MV88F6282_DEV_ID) {
-+		writel(readl(PCIE1_LINK_CTRL) | 0x10, PCIE1_LINK_CTRL);
-+		while (1)
-+			if (readl(PCIE1_STATUS) & 0x1)
-+				break;
-+		writel(readl(PCIE1_LINK_CTRL) & ~0x10, PCIE1_LINK_CTRL);
-+	}
++	writel(readl(PCIE1_LINK_CTRL) | 0x10, PCIE1_LINK_CTRL);
++	while (1)
++		if (readl(PCIE1_STATUS) & 0x1)
++			break;
++	writel(readl(PCIE1_LINK_CTRL) & ~0x10, PCIE1_LINK_CTRL);
 +}
 +
 +/* An extended version of the gated clk. This calls fn_en()/fn_dis
@@ -1562,7 +1556,8 @@ Subject: [PATCH 1/4] avanta: add platform support
 +
 +	kirkwood_pcie_id(&dev, &rev);
 +
-+	if (dev == MV88F6281_DEV_ID || dev == MV88F6282_DEV_ID)
++	if (dev == MV88F6281_DEV_ID || dev == MV88F6282_DEV_ID ||
++			dev == 0x6560)
 +		if (((readl(SAMPLE_AT_RESET) >> 21) & 1) == 0)
 +			return 200000000;
 +
@@ -1679,6 +1674,11 @@ Subject: [PATCH 1/4] avanta: add platform support
 +			return "MV88F6282-Rev-A1";
 +		else
 +			return "MV88F6282-Rev-Unsupported";
++	} else if (dev == 0x6560) {
++		if(rev == 0x02)
++			return "MV88F6560-Rev-2";
++		else
++			return "MV88F6560-Rev-Unknown";
 +	} else {
 +		return "Device-Unknown";
 +	}
@@ -1711,7 +1711,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +
 +void __init kirkwood_init(void)
 +{
-+	pr_info("Kirkwood: %s, TCLK=%d.\n", kirkwood_id(), kirkwood_tclk);
++	pr_info("Avanta: %s, TCLK=%d.\n", kirkwood_id(), kirkwood_tclk);
 +
 +	/*
 +	 * Disable propagation of mbus errors to the CPU local bus,
@@ -2104,7 +2104,7 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#define KIRKWOOD_NAND_MEM_PHYS_BASE	0xf4000000
 +#define KIRKWOOD_NAND_MEM_SIZE		SZ_1K
 +
-+#define KIRKWOOD_PCIE1_IO_PHYS_BASE	0xf2100000
++#define KIRKWOOD_PCIE1_IO_PHYS_BASE	0xf3000000
 +#define KIRKWOOD_PCIE1_IO_BUS_BASE	0x00010000
 +#define KIRKWOOD_PCIE1_IO_SIZE		SZ_64K
 +
