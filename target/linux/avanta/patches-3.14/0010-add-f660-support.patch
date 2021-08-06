@@ -1,8 +1,8 @@
 --- /dev/null
-+++ b/arch/arm/boot/dts/avanta-hgg420n.dts
-@@ -0,0 +1,153 @@
++++ b/arch/arm/boot/dts/avanta-f660.dts
+@@ -0,0 +1,198 @@
 +/*
-+ * Device Tree file for hqw hgg420n
++ * Device Tree file for zte f660
 + *   (c) 2021 winnt5 <jiconglu58@gmail.com>
 + *
 + * based on avanta-mi424wr.dts by Claudio Leite
@@ -26,8 +26,8 @@
 +#include "avanta-6560.dtsi"
 +
 +/ {
-+	model = "HQW HGG420N";
-+	compatible = "hql,hgg420n", "marvell,kirkwood-88f6282", "marvell,kirkwood";
++	model = "ZTE F660";
++	compatible = "zte,f660", "marvell,kirkwood-88f6282", "marvell,kirkwood";
 +
 +	memory {
 +		device_type = "memory";
@@ -39,6 +39,7 @@
 +	};
 +
 +
++/*
 +	mbus {
 +		pcie-controller {
 +			status = "okay";
@@ -52,6 +53,7 @@
 +			};
 +		};
 +	};
++*/
 +
 +	ocp@f1000000 {
 +/*
@@ -105,6 +107,49 @@
 +		};
 +	};
 +*/
++	gpio-leds {
++		compatible = "gpio-leds";
++
++		warn-red {
++			label = "warn:red";
++			gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
++		};
++
++		voice1-green {
++			label = "voice1:green";
++			gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
++		};
++
++		ponnetwork-green {
++			label = "ponnetwork:green";
++			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
++		};
++
++		ponport-red {
++			label = "ponport:red";
++			gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;
++		};
++
++		voice2-green {
++			label = "voice2:green";
++			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
++		};
++
++		wps-red {
++			label = "wps:red";
++			gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
++		};
++
++		wps-green {
++			label = "wps:green";
++			gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
++		};
++
++		usb-green {
++			label = "usb:green";
++			gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;
++		};
++	};
 +
 +	mvsw6171 {
 +		compatible = "marvell,88e6171";
@@ -127,17 +172,17 @@
 +
 +	partition@0 {
 +		label = "u-boot";
-+		reg = <0 0x100000>;
++		reg = <0 0x80000>;
 +	};
 +
-+	partition@100000 {
++	partition@80000 {
 +		label = "kernel";
-+		reg = <0x100000 0x200000>;
++		reg = <0x80000 0x200000>;
 +	};
 +
-+	partition@300000 {
++	partition@280000 {
 +		label = "ubi";
-+		reg = <0x300000 0x3d00000>;
++		reg = <0x280000 0x1d80000>;
 +	};
 +};
 +

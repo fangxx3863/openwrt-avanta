@@ -1,52 +1,3 @@
-From bc536470468384a59b50c026277d1f221ef09f1a Mon Sep 17 00:00:00 2001
-From: Claudio Leite <leitec@staticky.com>
-Date: Sat, 26 Jul 2014 21:31:58 -0400
-Subject: [PATCH 1/4] avanta: add platform support
-
----
- arch/arm/Kconfig                                |  18 +
- arch/arm/Kconfig.debug                          |   7 +-
- arch/arm/Makefile                               |   1 +
- arch/arm/boot/dts/Makefile                      |   1 +
- arch/arm/boot/dts/avanta-6560.dtsi              | 147 +++++
- arch/arm/boot/dts/avanta-f660.dts            | 179 ++++++
- arch/arm/boot/dts/avanta.dtsi                   | 276 +++++++++
- arch/arm/mach-avanta/Kconfig                    |  25 +
- arch/arm/mach-avanta/Makefile                   |   4 +
- arch/arm/mach-avanta/Makefile.boot              |   3 +
- arch/arm/mach-avanta/board-dt.c                 | 147 +++++
- arch/arm/mach-avanta/common.c                   | 745 ++++++++++++++++++++++++
- arch/arm/mach-avanta/common.h                   |  87 +++
- arch/arm/mach-avanta/include/mach/bridge-regs.h |  83 +++
- arch/arm/mach-avanta/include/mach/entry-macro.S |  34 ++
- arch/arm/mach-avanta/include/mach/hardware.h    |  14 +
- arch/arm/mach-avanta/include/mach/irqs.h        |  65 +++
- arch/arm/mach-avanta/include/mach/kirkwood.h    | 142 +++++
- arch/arm/mach-avanta/include/mach/timex.h       |  10 +
- arch/arm/mach-avanta/include/mach/uncompress.h  |  46 ++
- arch/arm/mach-avanta/pcie.c                     | 296 ++++++++++
- arch/arm/mach-avanta/pm.c                       |  73 +++
- arch/arm/mm/Kconfig                             |   2 +-
- 23 files changed, 2401 insertions(+), 4 deletions(-)
- create mode 100644 arch/arm/boot/dts/avanta-6560.dtsi
- create mode 100644 arch/arm/boot/dts/avanta-f660.dts
- create mode 100644 arch/arm/boot/dts/avanta.dtsi
- create mode 100644 arch/arm/mach-avanta/Kconfig
- create mode 100644 arch/arm/mach-avanta/Makefile
- create mode 100644 arch/arm/mach-avanta/Makefile.boot
- create mode 100644 arch/arm/mach-avanta/board-dt.c
- create mode 100644 arch/arm/mach-avanta/common.c
- create mode 100644 arch/arm/mach-avanta/common.h
- create mode 100644 arch/arm/mach-avanta/include/mach/bridge-regs.h
- create mode 100644 arch/arm/mach-avanta/include/mach/entry-macro.S
- create mode 100644 arch/arm/mach-avanta/include/mach/hardware.h
- create mode 100644 arch/arm/mach-avanta/include/mach/irqs.h
- create mode 100644 arch/arm/mach-avanta/include/mach/kirkwood.h
- create mode 100644 arch/arm/mach-avanta/include/mach/timex.h
- create mode 100644 arch/arm/mach-avanta/include/mach/uncompress.h
- create mode 100644 arch/arm/mach-avanta/pcie.c
- create mode 100644 arch/arm/mach-avanta/pm.c
-
 --- a/arch/arm/Kconfig
 +++ b/arch/arm/Kconfig
 @@ -555,6 +555,22 @@ config ARCH_KIRKWOOD
@@ -306,207 +257,6 @@ Subject: [PATCH 1/4] avanta: add platform support
 +	};
 +};
 --- /dev/null
-+++ b/arch/arm/boot/dts/avanta-f660.dts
-@@ -0,0 +1,198 @@
-+/*
-+ * Device Tree file for zte f660
-+ *   (c) 2021 winnt5 <jiconglu58@gmail.com>
-+ *
-+ * based on avanta-mi424wr.dts by Claudio Leite
-+ *
-+ * avanta-mi424wr.dts - Device Tree file for Actiontec MI-424WR Rev I
-+ *   (c) 2015 Claudio Leite <leitec@staticky.com>
-+ *
-+ * based on kirkwood-ea4500.dts,
-+ *   (c) 2013 Jonas Gorski <jogo@openwrt.org>
-+ *   (c) 2013 Deutsche Telekom Innovation Laboratories
-+ *   (c) 2014 Luka Perkov <luka@openwrt.org>
-+ *
-+ * This file is licensed under the terms of the GNU General Public
-+ * License version 2.  This program is licensed "as is" without any
-+ * warranty of any kind, whether express or implied.
-+ */
-+
-+/dts-v1/;
-+
-+#include "avanta.dtsi"
-+#include "avanta-6560.dtsi"
-+
-+/ {
-+	model = "ZTE F660";
-+	compatible = "zte,f660", "marvell,kirkwood-88f6282", "marvell,kirkwood";
-+
-+	memory {
-+		device_type = "memory";
-+		reg = <0x00000000 0x8000000>;
-+	};
-+
-+	chosen {
-+		bootargs = "console=ttyS0,115200n8 earlyprintk";
-+	};
-+
-+
-+/*
-+	mbus {
-+		pcie-controller {
-+			status = "okay";
-+
-+			pcie@1,0 {
-+				status = "okay";
-+			};
-+
-+			pcie@2,0 {
-+				status = "okay";
-+			};
-+		};
-+	};
-+*/
-+
-+	ocp@f1000000 {
-+/*
-+		pinctrl: pinctrl@10000 {
-+			pmx_led_white_health: pmx-led-white-health {
-+				marvell,pins = "mpp7";
-+				marvell,function = "gpo";
-+			};
-+			pmx_led_white_pulse: pmx-led-white-pulse {
-+				marvell,pins = "mpp14";
-+				marvell,function = "gpio";
-+			};
-+			pmx_btn_wps: pmx-btn-wps {
-+				marvell,pins = "mpp47";
-+				marvell,function = "gpio";
-+			};
-+			pmx_btn_reset: pmx-btn-reset {
-+				marvell,pins = "mpp48";
-+				marvell,function = "gpio";
-+			};
-+		};
-+*/
-+
-+		rtc@10300 {
-+			status = "disabled";
-+		};
-+
-+		serial@12000 {
-+			status = "okay";
-+		};
-+	};
-+
-+/*
-+	gpio_keys {
-+		compatible = "gpio-keys";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		pinctrl-0 = < &pmx_btn_wps &pmx_btn_reset >;
-+		pinctrl-names = "default";
-+
-+		button@15 {
-+			label = "WPS Button";
-+			linux,code = <KEY_WPS_BUTTON>;
-+			gpios = <&gpio1 15 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		button@16 {
-+			label = "Reset Button";
-+			linux,code = <KEY_RESTART>;
-+			gpios = <&gpio1 16 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+*/
-+	gpio-leds {
-+		compatible = "gpio-leds";
-+
-+		warn-red {
-+			label = "warn:red";
-+			gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		voice1-green {
-+			label = "voice1:green";
-+			gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ponnetwork-green {
-+			label = "ponnetwork:green";
-+			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ponport-red {
-+			label = "ponport:red";
-+			gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		voice2-green {
-+			label = "voice2:green";
-+			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		wps-red {
-+			label = "wps:red";
-+			gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		wps-green {
-+			label = "wps:green";
-+			gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		usb-green {
-+			label = "usb:green";
-+			gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	mvsw6171 {
-+		compatible = "marvell,88e6171";
-+		status = "okay";
-+		reg = <0x8>;
-+
-+		mii-bus = <&mdio>;
-+		cpu-port-0 = <4>;
-+		cpu-port-1 = <5>;
-+		is-indirect;
-+	};
-+};
-+
-+&nand {
-+	status = "okay";
-+/*
-+	pinctrl-0 = <&pmx_nand_none>;
-+	pinctrl-names = "default";
-+*/
-+
-+	partition@0 {
-+		label = "u-boot";
-+		reg = <0 0x80000>;
-+	};
-+
-+	partition@80000 {
-+		label = "kernel";
-+		reg = <0x80000 0x200000>;
-+	};
-+
-+	partition@280000 {
-+		label = "ubi";
-+		reg = <0x280000 0x1d80000>;
-+	};
-+};
-+
-+&mdio {
-+	status = "okay";
-+};
-+
-+&eth0 {
-+	status = "okay";
-+	phy-mode = "gmii";
-+
-+	fixed-link {
-+		speed = <1000>;
-+		full-duplex;
-+	};
-+};
---- /dev/null
 +++ b/arch/arm/boot/dts/avanta.dtsi
 @@ -0,0 +1,313 @@
 +/*
@@ -570,11 +320,11 @@ Subject: [PATCH 1/4] avanta: add platform support
 +		#size-cells = <1>;
 +		/* If a board file needs to change this ranges it must replace it completely */
 +		ranges = <MBUS_ID(0xf0, 0x01) 0 0xf1000000 0x100000	/* internal-regs */
-+			  MBUS_ID(0x01, 0x2f) 0 0xf4000000 0x10000	/* nand flash */
++			  MBUS_ID(0x01, 0x2f) 0 0xf8000000 0x10000	/* nand flash */
 +			  MBUS_ID(0x03, 0x01) 0 0xf5000000 0x10000	/* crypto sram */
 +			  >;
 +		controller = <&mbusc>;
-+		pcie-mem-aperture = <0xf3000000 0x1000000>; /* 16 MiB memory space */
++		pcie-mem-aperture = <0xf3000000 0x2000000>; /* 32 MiB memory space */
 +		pcie-io-aperture  = <0xf2000000 0x100000>;   /*   1 MiB    I/O space */
 +
 +		crypto@0301 {
@@ -2084,12 +1834,12 @@ Subject: [PATCH 1/4] avanta: add platform support
 + * Marvell Kirkwood address maps.
 + *
 + * phys
-+ * e0000000	PCIe #0 Memory space
-+ * e8000000	PCIe #1 Memory space
++ * f3000000	PCIe #0 Memory space
++ * f4000000	PCIe #1 Memory space
 + * f1000000	on-chip peripheral registers
 + * f2000000	PCIe #0 I/O space
-+ * f3000000	PCIe #1 I/O space
-+ * f4000000	NAND controller address window
++ * f2100000	PCIe #1 I/O space
++ * f8000000	NAND controller address window
 + * f5000000	Security Accelerator SRAM
 + *
 + * virt		phys		size
@@ -2101,10 +1851,10 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#define KIRKWOOD_SRAM_PHYS_BASE		0xf5000000
 +#define KIRKWOOD_SRAM_SIZE		SZ_2K
 +
-+#define KIRKWOOD_NAND_MEM_PHYS_BASE	0xf4000000
++#define KIRKWOOD_NAND_MEM_PHYS_BASE	0xf8000000
 +#define KIRKWOOD_NAND_MEM_SIZE		SZ_1K
 +
-+#define KIRKWOOD_PCIE1_IO_PHYS_BASE	0xf3000000
++#define KIRKWOOD_PCIE1_IO_PHYS_BASE	0xf2100000
 +#define KIRKWOOD_PCIE1_IO_BUS_BASE	0x00010000
 +#define KIRKWOOD_PCIE1_IO_SIZE		SZ_64K
 +
@@ -2116,13 +1866,13 @@ Subject: [PATCH 1/4] avanta: add platform support
 +#define KIRKWOOD_REGS_VIRT_BASE		IOMEM(0xfed00000)
 +#define KIRKWOOD_REGS_SIZE		SZ_1M
 +
-+#define KIRKWOOD_PCIE_MEM_PHYS_BASE	0xe0000000
-+#define KIRKWOOD_PCIE_MEM_BUS_BASE	0xe0000000
-+#define KIRKWOOD_PCIE_MEM_SIZE		SZ_128M
++#define KIRKWOOD_PCIE_MEM_PHYS_BASE	0xf3000000
++#define KIRKWOOD_PCIE_MEM_BUS_BASE	0xf3000000
++#define KIRKWOOD_PCIE_MEM_SIZE		SZ_16M
 +
-+#define KIRKWOOD_PCIE1_MEM_PHYS_BASE	0xe8000000
-+#define KIRKWOOD_PCIE1_MEM_BUS_BASE	0xe8000000
-+#define KIRKWOOD_PCIE1_MEM_SIZE		SZ_128M
++#define KIRKWOOD_PCIE1_MEM_PHYS_BASE	0xf4000000
++#define KIRKWOOD_PCIE1_MEM_BUS_BASE	0xf4000000
++#define KIRKWOOD_PCIE1_MEM_SIZE		SZ_16M
 +
 +/*
 + * Register Map
