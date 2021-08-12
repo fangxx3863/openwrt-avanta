@@ -27,7 +27,7 @@ define Profile/HGG420N
   NAME:=HQW HGG420N
   PACKAGES:= \
 	kmod-rtl8192ce kmod-usb2 kmod-usb-storage \
-	swconfig
+	swconfig wpad
 endef
 
 define Profile/HGG420N/Description
