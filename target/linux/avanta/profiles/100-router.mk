@@ -8,10 +8,10 @@
 define Profile/F660
   NAME:=ZTE F660
   PACKAGES:= \
-	kmod-usb2 kmod-usb-storage \
+	kmod-rtl8192ce kmod-usb2 kmod-usb-storage \
 	kmod-leds-gpio kmod-ledtrig-netdev \
 	kmod-ledtrig-usbdev \
-	swconfig
+	swconfig wpad
 endef
 
 define Profile/F660/Description
@@ -27,6 +27,8 @@ define Profile/HGG420N
   NAME:=HQW HGG420N
   PACKAGES:= \
 	kmod-rtl8192ce kmod-usb2 kmod-usb-storage \
+	kmod-leds-gpio kmod-ledtrig-netdev \
+	kmod-ledtrig-usbdev \
 	swconfig wpad
 endef
 

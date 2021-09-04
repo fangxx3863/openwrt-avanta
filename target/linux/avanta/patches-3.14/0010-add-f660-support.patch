@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-f660.dts
-@@ -0,0 +1,198 @@
+@@ -0,0 +1,218 @@
 +/*
 + * Device Tree file for zte f660
 + *   (c) 2021 winnt5 <jiconglu58@gmail.com>
