@@ -6,8 +6,8 @@
 
 get_status_led() {
 	case $(kirkwood_board_name) in
-	f660)
-		status_led="ponnetwork:green"
+	hgg420n)
+		status_led="hgg420n:green:power"
 		;;
 	esac
 }

@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-f660.dts
-@@ -0,0 +1,218 @@
+@@ -0,0 +1,215 @@
 +/*
 + * Device Tree file for zte f660
 + *   (c) 2021 winnt5 <jiconglu58@gmail.com>
@@ -38,8 +38,6 @@
 +		bootargs = "console=ttyS0,115200n8 earlyprintk";
 +	};
 +
-+
-+/*
 +	mbus {
 +		pcie-controller {
 +			status = "okay";
@@ -53,7 +51,6 @@
 +			};
 +		};
 +	};
-+*/
 +
 +	ocp@f1000000 {
 +/*
@@ -133,26 +130,6 @@
 +		green-voice2 {
 +			label = "f660:green:voice2";
 +			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		green-port1 {
-+			label = "f660:green:port1";
-+			gpios = <&gpio1 25 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		green-port2 {
-+			label = "f660:green:port2";
-+			gpios = <&gpio1 27 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		green-port4 {
-+			label = "f660:green:port4";
-+			gpios = <&gpio1 29 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		green-port3 {
-+			label = "f660:green:port3";
-+			gpios = <&gpio1 31 GPIO_ACTIVE_LOW>;
 +		};
 +
 +		red-wps {
