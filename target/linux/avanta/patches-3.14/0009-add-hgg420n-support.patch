@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-hgg420n.dts
-@@ -0,0 +1,222 @@
+@@ -0,0 +1,207 @@
 +/*
 + * Device Tree file for hqw hgg420n
 + *   (c) 2021 winnt5 <jiconglu58@gmail.com>
