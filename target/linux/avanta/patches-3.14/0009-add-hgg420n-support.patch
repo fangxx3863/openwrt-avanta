@@ -106,6 +106,75 @@
 +	};
 +*/
 +
++	gpio-leds {
++		compatible = "gpio-leds";
++
++		green-port3 {
++			label = "hgg420n:green:port3";
++			gpios = <&gpio0 23 GPIO_ACTIVE_LOW>;
++		};
++
++		green-port1 {
++			label = "hgg420n:green:port1";
++			gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
++		};
++
++		green-ponnetwork {
++			label = "hgg420n:green:ponnetwork";
++			gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
++		};
++
++		green-port2 {
++			label = "hgg420n:green:port2";
++			gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
++		};
++
++		green-ponport {
++			label = "hgg420n:green:ponport";
++			gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
++		};
++
++		green-voice1 {
++			label = "hgg420n:green:voice1";
++			gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
++		};
++
++		green-voice2 {
++			label = "hgg420n:green:voice2";
++			gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
++		};
++
++		green-network {
++			label = "hgg420n:green:network";
++			gpios = <&gpio1 15 GPIO_ACTIVE_LOW>;
++		};
++
++		green-port4 {
++			label = "hgg420n:green:port4";
++			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
++		};
++
++		green-usb {
++			label = "hgg420n:green:usb";
++			gpios = <&gpio1 25 GPIO_ACTIVE_LOW>;
++		};
++
++		green-power {
++			label = "hgg420n:green:power";
++			gpios = <&gpio1 26 GPIO_ACTIVE_LOW>;
++		};
++
++		red-wps {
++			label = "hgg420n:red:wps";
++			gpios = <&gpio1 28 GPIO_ACTIVE_LOW>;
++		};
++
++		green-wps {
++			label = "hgg420n:green:wps";
++			gpios = <&gpio2 16 GPIO_ACTIVE_LOW>;
++		};
++	};
++
 +	mvsw6171 {
 +		compatible = "marvell,88e6171";
 +		status = "okay";

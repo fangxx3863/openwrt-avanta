@@ -135,6 +135,26 @@
 +			gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
 +		};
 +
++		green-port1 {
++			label = "f660:green:port1";
++			gpios = <&gpio1 25 GPIO_ACTIVE_LOW>;
++		};
++
++		green-port2 {
++			label = "f660:green:port2";
++			gpios = <&gpio1 27 GPIO_ACTIVE_LOW>;
++		};
++
++		green-port4 {
++			label = "f660:green:port4";
++			gpios = <&gpio1 29 GPIO_ACTIVE_LOW>;
++		};
++
++		green-port3 {
++			label = "f660:green:port3";
++			gpios = <&gpio1 31 GPIO_ACTIVE_LOW>;
++		};
++
 +		red-wps {
 +			label = "f660:red:wps";
 +			gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
@@ -172,17 +192,17 @@
 +
 +	partition@0 {
 +		label = "u-boot";
-+		reg = <0 0x80000>;
++		reg = <0 0x100000>;
 +	};
 +
-+	partition@80000 {
++	partition@100000 {
 +		label = "kernel";
-+		reg = <0x80000 0x200000>;
++		reg = <0x100000 0x200000>;
 +	};
 +
-+	partition@280000 {
++	partition@300000 {
 +		label = "ubi";
-+		reg = <0x280000 0x1d80000>;
++		reg = <0x300000 0x1d00000>;
 +	};
 +};
 +
