@@ -10,7 +10,7 @@ define Profile/F660
   PACKAGES:= \
 	kmod-rtl8192ce kmod-usb2 kmod-usb-storage \
 	kmod-leds-gpio kmod-ledtrig-netdev \
-	kmod-ledtrig-usbdev \
+	kmod-ledtrig-usbdev kmod-gpio-button-hotplug \
 	swconfig wpad
 endef
 
