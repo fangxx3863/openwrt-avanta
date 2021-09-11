@@ -168,7 +168,7 @@
 +	ocp@f1000000 {
 +		pinctrl: pinctrl@18000 {
 +			compatible = "marvell,mv88f6710-pinctrl";
-+			reg = <0x18000 0x38>;
++			reg = <0x18000 0x59>;
 +
 +			pmx_nand: pmx-nand {
 +				marvell,pins = "mpp0", "mpp1", "mpp2", "mpp3",
@@ -1743,7 +1743,7 @@
 +#endif
 --- /dev/null
 +++ b/arch/arm/mach-avanta/include/mach/irqs.h
-@@ -0,0 +1,69 @@
+@@ -0,0 +1,70 @@
 +/*
 + * arch/arm/mach-kirkwood/include/mach/irqs.h
 + *
@@ -1799,8 +1799,9 @@
 +#define IRQ_KIRKWOOD_GPIO_HIGH_0_7	43
 +#define IRQ_KIRKWOOD_GPIO_HIGH_8_15	44
 +#define IRQ_KIRKWOOD_GPIO_HIGH_16_23	45
-+#define IRQ_KIRKWOOD_GE00_ERR	46
-+#define IRQ_KIRKWOOD_GE01_ERR	47
++#define IRQ_KIRKWOOD_GPIO_HIGH_24_24	46
++#define IRQ_KIRKWOOD_GE00_ERR	60
++#define IRQ_KIRKWOOD_GE01_ERR	61
 +#define IRQ_KIRKWOOD_RTC        53
 +
 +/*
