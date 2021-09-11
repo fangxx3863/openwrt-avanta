@@ -404,10 +404,10 @@
 +			#gpio-cells = <2>;
 +			gpio-controller;
 +			reg = <0x18180 0x40>;
-+			ngpios = <24>;
++			ngpios = <25>;
 +			interrupt-controller;
 +			#interrupt-cells = <2>;
-+			interrupts = <43>, <44>, <45>;
++			interrupts = <43>, <44>, <45>, <46>;
 +			clocks = <&gate_clk 7>;
 +		};
 +
