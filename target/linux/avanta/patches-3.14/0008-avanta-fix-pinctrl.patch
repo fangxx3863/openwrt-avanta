@@ -1,6 +1,193 @@
 --- a/drivers/pinctrl/mvebu/pinctrl-armada-370.c
 +++ b/drivers/pinctrl/mvebu/pinctrl-armada-370.c
-@@ -363,6 +363,52 @@ static struct mvebu_mpp_mode mv88f6710_m
+@@ -9,6 +9,12 @@
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
++ *
++ * Modified by winnt5 to basicly support the GPIO function of Marvell Avanta 88f6560 MPPs.
++ *
++ * (c) 2021 winnt5 <jiconglu58@gmail.com>
++ *
++ * Don't use the function besides GPIO, they are mostly incorrect. I don't have Avanta 88f6560 datasheet.
+  */
+ 
+ #include <linux/err.h>
+@@ -28,7 +34,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "uart0", "rxd")),
+ 	MPP_MODE(1,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "uart0", "txd")),
+ 	MPP_MODE(2,
+ 	   MPP_FUNCTION(0x0, "gpio", NULL),
+@@ -42,7 +48,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "cpu_pd", "vdd")),
+ 	MPP_MODE(5,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txclko"),
+ 	   MPP_FUNCTION(0x2, "uart1", "txd"),
+ 	   MPP_FUNCTION(0x4, "spi1", "clk"),
+@@ -54,7 +60,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x4, "tdm", "rst"),
+ 	   MPP_FUNCTION(0x5, "audio", "sdo")),
+ 	MPP_MODE(7,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txd1"),
+ 	   MPP_FUNCTION(0x4, "tdm", "tdx"),
+ 	   MPP_FUNCTION(0x5, "audio", "lrclk")),
+@@ -65,7 +71,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x4, "tdm", "drx"),
+ 	   MPP_FUNCTION(0x5, "audio", "bclk")),
+ 	MPP_MODE(9,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txd3"),
+ 	   MPP_FUNCTION(0x2, "uart1", "txd"),
+ 	   MPP_FUNCTION(0x3, "sd0", "clk"),
+@@ -119,7 +125,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x4, "tdm", "int"),
+ 	   MPP_FUNCTION(0x5, "audio", "extclk")),
+ 	MPP_MODE(17,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge", "mdc")),
+ 	MPP_MODE(18,
+ 	   MPP_FUNCTION(0x0, "gpio", NULL),
+@@ -130,21 +136,21 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x2, "ge1", "txclkout"),
+ 	   MPP_FUNCTION(0x4, "tdm", "pclk")),
+ 	MPP_MODE(20,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txd4"),
+ 	   MPP_FUNCTION(0x2, "ge1", "txd0")),
+ 	MPP_MODE(21,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txd5"),
+ 	   MPP_FUNCTION(0x2, "ge1", "txd1"),
+ 	   MPP_FUNCTION(0x4, "uart1", "txd")),
+ 	MPP_MODE(22,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txd6"),
+ 	   MPP_FUNCTION(0x2, "ge1", "txd2"),
+ 	   MPP_FUNCTION(0x4, "uart0", "rts")),
+ 	MPP_MODE(23,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "ge0", "txd7"),
+ 	   MPP_FUNCTION(0x2, "ge1", "txd3"),
+ 	   MPP_FUNCTION(0x4, "spi1", "mosi")),
+@@ -194,19 +200,19 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x1, "dev", "bootcs"),
+ 	   MPP_FUNCTION(0x2, "spi0", "cs0")),
+ 	MPP_MODE(34,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "wen0"),
+ 	   MPP_FUNCTION(0x2, "spi0", "mosi")),
+ 	MPP_MODE(35,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "oen"),
+ 	   MPP_FUNCTION(0x2, "spi0", "sck")),
+ 	MPP_MODE(36,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "a1"),
+ 	   MPP_FUNCTION(0x2, "spi0", "miso")),
+ 	MPP_MODE(37,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "a0"),
+ 	   MPP_FUNCTION(0x2, "sata0", "prsnt")),
+ 	MPP_MODE(38,
+@@ -215,7 +221,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x2, "uart1", "cts"),
+ 	   MPP_FUNCTION(0x3, "uart0", "cts")),
+ 	MPP_MODE(39,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad0"),
+ 	   MPP_FUNCTION(0x2, "audio", "spdifo")),
+ 	MPP_MODE(40,
+@@ -228,27 +234,27 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x1, "dev", "ad2"),
+ 	   MPP_FUNCTION(0x2, "uart1", "rxd")),
+ 	MPP_MODE(42,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad3"),
+ 	   MPP_FUNCTION(0x2, "uart1", "txd")),
+ 	MPP_MODE(43,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad4"),
+ 	   MPP_FUNCTION(0x2, "audio", "bclk")),
+ 	MPP_MODE(44,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad5"),
+ 	   MPP_FUNCTION(0x2, "audio", "mclk")),
+ 	MPP_MODE(45,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad6"),
+ 	   MPP_FUNCTION(0x2, "audio", "lrclk")),
+ 	MPP_MODE(46,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad7"),
+ 	   MPP_FUNCTION(0x2, "audio", "sdo")),
+ 	MPP_MODE(47,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad8"),
+ 	   MPP_FUNCTION(0x3, "sd0", "clk"),
+ 	   MPP_FUNCTION(0x5, "audio", "spdifo")),
+@@ -293,7 +299,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x4, "spi0", "cs2"),
+ 	   MPP_FUNCTION(0x5, "pcie", "clkreq1")),
+ 	MPP_MODE(54,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ad15"),
+ 	   MPP_FUNCTION(0x3, "tdm", "dtx")),
+ 	MPP_MODE(55,
+@@ -326,7 +332,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x5, "audio", "extclk"),
+ 	   MPP_FUNCTION(0x6, "uart0", "rts")),
+ 	MPP_MODE(59,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "ale0"),
+ 	   MPP_FUNCTION(0x2, "uart1", "rts"),
+ 	   MPP_FUNCTION(0x3, "uart0", "rts"),
+@@ -339,7 +345,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x4, "pcie", "rst-out"),
+ 	   MPP_FUNCTION(0x5, "audio", "sdi")),
+ 	MPP_MODE(61,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "dev", "wen1"),
+ 	   MPP_FUNCTION(0x2, "uart1", "txd"),
+ 	   MPP_FUNCTION(0x5, "audio", "rclk")),
+@@ -352,7 +358,7 @@ static struct mvebu_mpp_mode mv88f6710_m
+ 	   MPP_FUNCTION(0x5, "audio", "mclk"),
+ 	   MPP_FUNCTION(0x6, "uart0", "cts")),
+ 	MPP_MODE(63,
+-	   MPP_FUNCTION(0x0, "gpo", NULL),
++	   MPP_FUNCTION(0x0, "gpio", NULL),
+ 	   MPP_FUNCTION(0x1, "spi0", "sck"),
+ 	   MPP_FUNCTION(0x2, "tclk", NULL)),
+ 	MPP_MODE(64,
+@@ -363,6 +369,52 @@ static struct mvebu_mpp_mode mv88f6710_m
  	   MPP_FUNCTION(0x0, "gpio", NULL),
  	   MPP_FUNCTION(0x1, "spi0", "mosi"),
  	   MPP_FUNCTION(0x2, "spi0", "cs2")),
@@ -53,7 +240,7 @@
  };
  
  static struct mvebu_pinctrl_soc_info armada_370_pinctrl_info;
-@@ -373,13 +419,13 @@ static struct of_device_id armada_370_pi
+@@ -373,13 +425,13 @@ static struct of_device_id armada_370_pi
  };
  
  static struct mvebu_mpp_ctrl mv88f6710_mpp_controls[] = {
