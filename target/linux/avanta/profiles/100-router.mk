@@ -28,7 +28,7 @@ define Profile/HGG420N
   PACKAGES:= \
 	kmod-rtl8192ce kmod-usb2 kmod-usb-storage \
 	kmod-leds-gpio kmod-ledtrig-netdev \
-	kmod-ledtrig-usbdev \
+	kmod-ledtrig-usbdev kmod-gpio-button-hotplug \
 	swconfig wpad
 endef
 

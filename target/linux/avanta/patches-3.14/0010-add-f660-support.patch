@@ -158,7 +158,7 @@
 +		};
 +
 +		button@8 {
-+			label = "wwan";
++			label = "wireless";
 +			linux,code = <KEY_WIMAX>;
 +			gpios = <&gpio2 8 GPIO_ACTIVE_LOW>;
 +		};

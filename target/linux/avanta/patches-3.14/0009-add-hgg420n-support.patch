@@ -160,6 +160,22 @@
 +		};
 +	};
 +
++	gpio_keys {
++		compatible = "gpio-keys";
++
++		button@8 {
++			label = "wps";
++			linux,code = <KEY_WPS_BUTTON>;
++			gpios = <&gpio2 8 GPIO_ACTIVE_LOW>;
++		};
++
++		button@9 {
++			label = "wireless";
++			linux,code = <KEY_WIMAX>;
++			gpios = <&gpio2 9 GPIO_ACTIVE_LOW>;
++		};
++	};
++
 +	mvsw6171 {
 +		compatible = "marvell,88e6171";
 +		status = "okay";
