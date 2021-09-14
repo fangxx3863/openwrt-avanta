@@ -85,7 +85,7 @@
  	kirkwood-db-88f6282.dtb \
 --- /dev/null
 +++ b/arch/arm/boot/dts/avanta-6560.dtsi
-@@ -0,0 +1,172 @@
+@@ -0,0 +1,169 @@
 +/*
 + * Hack of kirkwood.dtsi to support a basic Avanta system
 + *
@@ -241,21 +241,18 @@
 +			phy-names = "port0";
 +			status = "disabled";
 +		};
-+/*
++
 +		mvsdio@90000 {
 +			compatible = "marvell,orion-sdio";
 +			reg = <0x90000 0x200>;
 +			interrupts = <18>;
 +			clocks = <&gate_clk 4>;
-+			pinctrl-0 = <&pmx_sdio>;
-+			pinctrl-names = "default";
 +			bus-width = <4>;
 +			cap-sdio-irq;
 +			cap-sd-highspeed;
 +			cap-mmc-highspeed;
 +			status = "disabled";
 +		};
-+*/
 +	};
 +};
 --- /dev/null
