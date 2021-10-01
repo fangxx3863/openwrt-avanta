@@ -923,7 +923,7 @@ $(eval $(call KernelPackage,thermal-imx))
 define KernelPackage/thermal-kirkwood
   SUBMENU:=$(OTHER_MENU)
   TITLE:=Temperature sensor on Marvell Kirkwood SoCs
-  DEPENDS:=@TARGET_kirkwood +kmod-thermal
+  DEPENDS:=+kmod-thermal
   KCONFIG:=CONFIG_KIRKWOOD_THERMAL
   FILES:=$(LINUX_DIR)/drivers/thermal/kirkwood_thermal.ko
   AUTOLOAD:=$(call AutoProbe,kirkwood_thermal)

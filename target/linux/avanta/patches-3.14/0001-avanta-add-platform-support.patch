@@ -207,9 +207,9 @@
 +*/
 +		};
 +
-+		thermal@10078 {
++		thermal@184d8 {
 +			compatible = "marvell,kirkwood-thermal";
-+			reg = <0x10078 0x4>;
++			reg = <0x184d8 0x4>;
 +			status = "okay";
 +		};
 +
