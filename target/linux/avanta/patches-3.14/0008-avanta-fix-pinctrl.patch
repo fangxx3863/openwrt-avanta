@@ -13,7 +13,7 @@
   */
  
  #include <linux/err.h>
-@@ -25,344 +31,184 @@
+@@ -25,344 +31,183 @@
  
  static struct mvebu_mpp_mode mv88f6710_mpp_modes[] = {
  	MPP_MODE(0,
@@ -444,8 +444,7 @@
 +	MPP_MODE(76,
 +	   MPP_FUNCTION(0x0, "gpio", NULL)),
 +	MPP_MODE(77,
-+	   MPP_FUNCTION(0x0, "gpio", NULL)
-+	   MPP_FUNCTION(0x1, "pex", "rsto")),
++	   MPP_FUNCTION(0x0, "gpio", NULL)),
 +	MPP_MODE(78,
 +	   MPP_FUNCTION(0x0, "gpio", NULL)),
 +	MPP_MODE(79,
@@ -471,7 +470,7 @@
  };
  
  static struct mvebu_pinctrl_soc_info armada_370_pinctrl_info;
-@@ -373,13 +219,13 @@ static struct of_device_id armada_370_pi
+@@ -373,13 +218,13 @@ static struct of_device_id armada_370_pi
  };
  
  static struct mvebu_mpp_ctrl mv88f6710_mpp_controls[] = {
